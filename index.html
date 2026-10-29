@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BRB Homes, Tours &amp; Travel</title>
+<meta name="description" content="Curated homes and trips across Africa, Asia, the Middle East and Europe. Kampala, Uganda.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F7F6F3}
+a{color:#0F5F5C}a:hover{color:#0A4644}
+button{font-family:inherit}
+input,textarea{font-family:inherit}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<template id="tpl">
+<div style="min-height: 1150px; background: #F7F6F3; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #10212B">
+
+  <header style="background: #FFFFFF; border-bottom: 1px solid #DDE3E2">
+    <div style="max-width: 1120px; margin: 0 auto; padding: 16px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+      <div style="display: flex; align-items: center; gap: 12px">
+        <div style="width: 40px; height: 40px; border-radius: 10px; background: #10212B; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; letter-spacing: 0.5px">BRB</div>
+        <div style="display: flex; flex-direction: column">
+          <span style="font-weight: 700; font-size: 16px">BRB Homes, Tours &amp; Travel</span>
+          <span style="font-size: 13px; color: #4A5A63">Kampala, Uganda</span>
+        </div>
+      </div>
+      <a href="tel:+256777401067" style="font-size: 14px; font-weight: 600; text-decoration: none">+256 777 401 067</a>
+    </div>
+  </header>
+
+  <div style="max-width: 1120px; margin: 0 auto; padding: 28px 24px 72px; display: flex; flex-direction: column; gap: 28px">
+
+    <nav aria-label="Progress" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px">
+      <sc-for list="{{steps}}" as="st" hint-placeholder-count="5">
+        <div style="display: flex; align-items: center; gap: 8px">
+          <span style="{{st.dotStyle}}">{{st.n}}</span>
+          <span style="{{st.labelStyle}}">{{st.label}}</span>
+        </div>
+      </sc-for>
+    </nav>
+
+    <sc-if value="{{showBack}}" hint-placeholder-val="{{ false }}">
+      <div>
+        <button type="button" onClick="{{goBack}}" style="background: transparent; border: 0; color: #0F5F5C; font-size: 15px; font-weight: 600; padding: 10px 0; min-height: 44px; cursor: pointer">← Back</button>
+      </div>
+    </sc-if>
+
+    <!-- STEP 1: choose a path (home page) -->
+    <sc-if value="{{isStep1}}" hint-placeholder-val="{{ true }}">
+      <section style="display: flex; flex-direction: column; gap: 28px">
+        <sc-if value="{{justBooked}}" hint-placeholder-val="{{ false }}">
+          <div role="status" style="display: flex; align-items: center; gap: 12px; background: #E3EFEE; border-radius: 14px; padding: 14px 18px">
+            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#0F5F5C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <span style="font-size: 15px; line-height: 1.5; color: #10212B">Your call request is in. We'll reach out to confirm a time.</span>
+          </div>
+        </sc-if>
+        <div style="display: flex; flex-direction: column; gap: 10px; max-width: 680px">
+          <span style="font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #9A6B1E">Welcome</span>
+          <h1 style="margin: 0; font-size: 44px; line-height: 1.1; font-weight: 800">Where would you like to start?</h1>
+          <p style="margin: 0; font-size: 18px; line-height: 1.55; color: #4A5A63">Choose one and we'll guide you, step by step, to options that fit you.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px">
+          <button type="button" onClick="{{chooseHomes}}" style="text-align: left; background: #FFFFFF; border: 1px solid #DDE3E2; border-radius: 18px; padding: 0; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; color: #10212B">
+            <div style="height: 240px; background: #D9E6E1; display: flex; align-items: flex-end; padding: 16px; box-sizing: border-box; width: 100%">
+              <span style="font-size: 13px; color: #2E4A44; background: rgba(255,255,255,0.75); padding: 4px 10px; border-radius: 999px">[Photo: a BRB home interior]</span>
+            </div>
+            <div style="padding: 24px; display: flex; flex-direction: column; gap: 8px">
+              <span style="font-size: 26px; font-weight: 800">Homes</span>
+              <span style="font-size: 16px; line-height: 1.5; color: #4A5A63">Find a place to stay, matched to who's coming and the mood of your trip.</span>
+              <span style="margin-top: 8px; font-size: 16px; font-weight: 700; color: #0F5F5C">Explore homes →</span>
+            </div>
+          </button>
+          <button type="button" onClick="{{chooseTours}}" style="text-align: left; background: #FFFFFF; border: 1px solid #DDE3E2; border-radius: 18px; padding: 0; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; color: #10212B">
+            <div style="height: 240px; background: #F0E2CB; display: flex; align-items: flex-end; padding: 16px; box-sizing: border-box; width: 100%">
+              <span style="font-size: 13px; color: #5C4415; background: rgba(255,255,255,0.75); padding: 4px 10px; border-radius: 999px">[Photo: Zanzibar beach]</span>
+            </div>
+            <div style="padding: 24px; display: flex; flex-direction: column; gap: 8px">
+              <span style="font-size: 26px; font-weight: 800">Tours &amp; travel</span>
+              <span style="font-size: 16px; line-height: 1.5; color: #4A5A63">Curated trips to Zanzibar, Dubai, Thailand, East Africa, Europe and more.</span>
+              <span style="margin-top: 8px; font-size: 16px; font-weight: 700; color: #0F5F5C">Plan a trip →</span>
+            </div>
+          </button>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px; margin-top: 28px">
+          <h2 style="margin: 0; font-size: 28px; font-weight: 800">How it works</h2>
+          <ol style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px">
+            <li style="background: #FFFFFF; border: 1px solid #DDE3E2; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 8px">
+              <span style="width: 30px; height: 30px; border-radius: 999px; background: #10212B; color: #FFFFFF; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center">1</span>
+              <span style="font-size: 17px; font-weight: 700">Choose homes or tours</span>
+              <span style="font-size: 14px; line-height: 1.5; color: #4A5A63">Start with what you need.</span>
+            </li>
+            <li style="background: #FFFFFF; border: 1px solid #DDE3E2; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 8px">
+              <span style="width: 30px; height: 30px; border-radius: 999px; background: #10212B; color: #FFFFFF; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center">2</span>
+              <span style="font-size: 17px; font-weight: 700">Pick your style</span>
+              <span style="font-size: 14px; line-height: 1.5; color: #4A5A63">Tell us the mood of your trip and who's coming.</span>
+            </li>
+            <li style="background: #FFFFFF; border: 1px solid #DDE3E2; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 8px">
+              <span style="width: 30px; height: 30px; border-radius: 999px; background: #10212B; color: #FFFFFF; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center">3</span>
+              <span style="font-size: 17px; font-weight: 700">Free consultation call</span>
+              <span style="font-size: 14px; line-height: 1.5; color: #4A5A63">We confirm your package and answer your questions.</span>
+            </li>
+            <li style="background: #FFFFFF; border: 1px solid #DDE3E2; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 8px">
+              <span style="width: 30px; height: 30px; border-radius: 999px; background: #10212B; color: #FFFFFF; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center">4</span>
+              <span style="font-size: 17px; font-weight: 700">Get your quotation</span>
+              <span style="font-size: 14px; line-height: 1.5; color: #4A5A63">A tailored quote, with flexible payment options.</span>
+            </li>
+          </ol>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px">
+          <h2 style="margin: 0; font-size: 28px; font-weight: 800">What travellers say</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px">
+            <figure style="margin: 0; background: #FFFFFF; border: 1px solid #DDE3E2; border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+              <blockquote style="margin: 0; font-size: 16px; line-height: 1.55; color: #10212B">“[Client quote, one or two sentences]”</blockquote>
+              <figcaption style="display: flex; flex-direction: column; gap: 2px">
+                <span style="font-size: 15px; font-weight: 700">[Client name]</span>
+                <span style="font-size: 13px; color: #4A5A63">[Trip, e.g. Zanzibar · Couple]</span>
+              </figcaption>
+            </figure>
+            <figure style="margin: 0; background: #FFFFFF; border: 1px solid #DDE3E2; border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+              <blockquote style="margin: 0; font-size: 16px; line-height: 1.55; color: #10212B">“[Client quote, one or two sentences]”</blockquote>
+              <figcaption style="display: flex; flex-direction: column; gap: 2px">
+                <span style="font-size: 15px; font-weight: 700">[Client name]</span>
+                <span style="font-size: 13px; color: #4A5A63">[Trip, e.g. Thailand · Friends group]</span>
+              </figcaption>
+            </figure>
+            <figure style="margin: 0; background: #FFFFFF; border: 1px solid #DDE3E2; border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+              <blockquote style="margin: 0; font-size: 16px; line-height: 1.55; color: #10212B">“[Client quote, one or two sentences]”</blockquote>
+              <figcaption style="display: flex; flex-direction: column; gap: 2px">
+                <span style="font-size: 15px; font-weight: 700">[Client name]</span>
+                <span style="font-size: 13px; color: #4A5A63">[Stay, e.g. Family home · Family]</span>
+              </figcaption>
+            </figure>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; color: #4A5A63">
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z" fill="#9A6B1E"></path></svg>
+            <span>[Rating] on Google · [n] reviews</span>
+            <a href="#" style="font-weight: 600">Read reviews</a>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px">
+          <h2 style="margin: 0; font-size: 28px; font-weight: 800">Meet the team</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px">
+            <div style="background: #FFFFFF; border: 1px solid #DDE3E2; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column">
+              <div style="height: 180px; background: #D9E6E1; display: flex; align-items: flex-end; padding: 10px; box-sizing: border-box"><span style="font-size: 12px; background: rgba(255,255,255,0.8); padding: 3px 9px; border-radius: 999px">[Photo: Betty]</span></div>
+              <div style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 4px">
+                <span style="font-size: 17px; font-weight: 700">Betty Nantongo</span>
+                <span style="font-size: 14px; color: #4A5A63">Founder &amp; Lead Travel Planner</span>
+              </div>
+            </div>
+            <div style="background: #FFFFFF; border: 1px solid #DDE3E2; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column">
+              <div style="height: 180px; background: #E1E4F0; display: flex; align-items: flex-end; padding: 10px; box-sizing: border-box"><span style="font-size: 12px; background: rgba(255,255,255,0.8); padding: 3px 9px; border-radius: 999px">[Photo: Ryan]</span></div>
+              <div style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 4px">
+                <span style="font-size: 17px; font-weight: 700">Ryan Griffiths</span>
+                <span style="font-size: 14px; color: #4A5A63">UK Partner</span>
+              </div>
+            </div>
+            <div style="background: #FFFFFF; border: 1px solid #DDE3E2; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column">
+              <div style="height: 180px; background: #F0E2CB; display: flex; align-items: flex-end; padding: 10px; box-sizing: border-box"><span style="font-size: 12px; background: rgba(255,255,255,0.8); padding: 3px 9px; border-radius: 999px">[Photo: Judith]</span></div>
+              <div style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 4px">
+                <span style="font-size: 17px; font-weight: 700">Kansiime Judith</span>
+                <span style="font-size: 14px; color: #4A5A63">Operations Manager</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; background: #10212B; color: #FFFFFF; border-radius: 18px; padding: 24px">
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <span style="font-size: 20px; font-weight: 800">Prefer to talk now?</span>
+            <span style="font-size: 15px; color: #C9D3D6">Kampala, Uganda</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px 24px">
+            <a href="tel:+256777401067" style="color: #FFFFFF; font-size: 16px; font-weight: 600">+256 777 401 067</a>
+            <a href="mailto:bookings@brbhomesandtours.com" style="color: #FFFFFF; font-size: 16px; font-weight: 600">bookings@brbhomesandtours.com</a>
+          </div>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- STEP 2: founder video -->
+    <sc-if value="{{isStep2}}" hint-placeholder-val="{{ false }}">
+      <section style="display: flex; flex-direction: column; gap: 24px; max-width: 880px">
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <span style="font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #9A6B1E">{{pathLabel}}</span>
+          <h1 style="margin: 0; font-size: 40px; line-height: 1.12; font-weight: 800">A welcome from our founder</h1>
+          <p style="margin: 0; font-size: 18px; line-height: 1.55; color: #4A5A63">Betty Nantongo, Founder &amp; Lead Travel Planner</p>
+        </div>
+        <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; background: #10212B; border-radius: 18px; overflow: hidden; display: flex; align-items: center; justify-content: center">
+          <sc-if value="{{videoIdle}}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 14px">
+              <button type="button" onClick="{{playVideo}}" aria-label="Play founder welcome video" style="width: 84px; height: 84px; border-radius: 999px; border: 0; background: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center">
+                <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="#10212B"></path></svg>
+              </button>
+              <span style="font-size: 15px; color: #C9D3D6">[Founder welcome video · about 60 seconds]</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{videoPlaying}}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 24px; text-align: center">
+              <span style="font-size: 20px; font-weight: 700; color: #FFFFFF">Video playing</span>
+              <span style="font-size: 15px; color: #C9D3D6; max-width: 460px; line-height: 1.5">[Betty welcomes the visitor and explains how BRB plans each stay or trip]</span>
+            </div>
+          </sc-if>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
+          <button type="button" onClick="{{toStep3}}" style="background: #0F5F5C; color: #FFFFFF; border: 0; border-radius: 12px; padding: 14px 24px; min-height: 50px; font-size: 16px; font-weight: 700; cursor: pointer">{{continueLabel}}</button>
+          <button type="button" onClick="{{toStep3}}" style="background: transparent; color: #4A5A63; border: 0; padding: 14px 8px; min-height: 50px; font-size: 15px; cursor: pointer">Skip video</button>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- STEP 3: themes (and party for homes) -->
+    <sc-if value="{{isStep3}}" hint-placeholder-val="{{ false }}">
+      <section style="display: flex; flex-direction: column; gap: 28px">
+        <div style="display: flex; flex-direction: column; gap: 10px; max-width: 720px">
+          <span style="font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #9A6B1E">{{pathLabel}}</span>
+          <h1 style="margin: 0; font-size: 40px; line-height: 1.12; font-weight: 800">{{themeHeading}}</h1>
+          <p style="margin: 0; font-size: 18px; line-height: 1.55; color: #4A5A63">Pick one or more. We'll only show you what fits.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px">
+          <sc-for list="{{themeChips}}" as="t" hint-placeholder-count="6">
+            <button type="button" onClick="{{t.toggle}}" aria-pressed="{{t.pressed}}" style="{{t.style}}">
+              <span style="font-size: 18px; font-weight: 700">{{t.label}}</span>
+              <span style="font-size: 14px; line-height: 1.45; color: #4A5A63">{{t.desc}}</span>
+            </button>
+          </sc-for>
+        </div>
+        <sc-if value="{{isHomes}}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; gap: 14px">
+            <h2 style="margin: 0; font-size: 22px; font-weight: 800">Who's coming?</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px">
+              <sc-for list="{{partyChips}}" as="p" hint-placeholder-count="4">
+                <button type="button" onClick="{{p.pick}}" aria-pressed="{{p.pressed}}" style="{{p.style}}">{{p.label}}</button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
+          <button type="button" onClick="{{toStep4}}" style="background: #0F5F5C; color: #FFFFFF; border: 0; border-radius: 12px; padding: 14px 24px; min-height: 50px; font-size: 16px; font-weight: 700; cursor: pointer">{{revealLabel}}</button>
+          <span style="font-size: 14px; color: #4A5A63">{{themeCountText}}</span>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- STEP 4: reveal albums -->
+    <sc-if value="{{isStep4}}" hint-placeholder-val="{{ false }}">
+      <section style="display: flex; flex-direction: column; gap: 28px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px">
+          <div style="display: flex; flex-direction: column; gap: 10px; max-width: 720px">
+            <span style="font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #9A6B1E">{{pathLabel}}</span>
+            <h1 style="margin: 0; font-size: 40px; line-height: 1.12; font-weight: 800">{{revealHeading}}</h1>
+            <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A5A63">{{matchText}}</p>
+          </div>
+          <button type="button" onClick="{{toStep5}}" style="{{bookBtnStyle}}">{{bookLabel}}</button>
+        </div>
+
+        <sc-for list="{{albums}}" as="al" hint-placeholder-count="3">
+          <div style="display: flex; flex-direction: column; gap: 14px; background: #FFFFFF; border: 1px solid #DDE3E2; border-radius: 18px; padding: 22px">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px">
+              <div style="display: flex; flex-direction: column; gap: 4px">
+                <h2 style="margin: 0; font-size: 24px; font-weight: 800">{{al.title}}</h2>
+                <span style="font-size: 14px; color: #4A5A63">{{al.sub}}</span>
+              </div>
+              <span style="font-size: 13px; font-weight: 700; color: #0F5F5C; background: #E3EFEE; padding: 6px 12px; border-radius: 999px">{{al.countText}}</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px">
+              <sc-for list="{{al.items}}" as="it" hint-placeholder-count="3">
+                <button type="button" onClick="{{it.toggle}}" aria-pressed="{{it.pressed}}" style="{{it.cardStyle}}">
+                  <div style="{{it.photoStyle}}">
+                    <span style="font-size: 12px; background: rgba(255,255,255,0.8); color: #10212B; padding: 3px 9px; border-radius: 999px">{{it.photo}}</span>
+                  </div>
+                  <div style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; text-align: left">
+                    <span style="font-size: 16px; font-weight: 700">{{it.name}}</span>
+                    <span style="font-size: 13px; line-height: 1.45; color: #4A5A63">{{it.meta}}</span>
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 4px">
+                      <span style="font-size: 15px; font-weight: 700">{{it.price}}</span>
+                      <span style="{{it.tagStyle}}">{{it.tag}}</span>
+                    </div>
+                  </div>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; background: #10212B; color: #FFFFFF; border-radius: 16px; padding: 18px 22px">
+          <span style="font-size: 16px">{{pickSummary}}</span>
+          <button type="button" onClick="{{toStep5}}" style="background: #FFFFFF; color: #10212B; border: 0; border-radius: 12px; padding: 12px 20px; min-height: 48px; font-size: 15px; font-weight: 700; cursor: pointer">Book a free consultation call</button>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- STEP 5: book consultation -->
+    <sc-if value="{{isStep5}}" hint-placeholder-val="{{ false }}">
+      <section style="display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start">
+        <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <span style="font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #9A6B1E">Complimentary</span>
+            <h1 style="margin: 0; font-size: 40px; line-height: 1.12; font-weight: 800">{{bookHeading}}</h1>
+            <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A5A63">{{bookSub}}</p>
+          </div>
+          <sc-if value="{{crossed}}" hint-placeholder-val="{{ false }}">
+            <div>
+              <button type="button" onClick="{{toStep6}}" style="background: #0F5F5C; color: #FFFFFF; border: 0; border-radius: 12px; padding: 14px 24px; min-height: 50px; font-size: 16px; font-weight: 700; cursor: pointer">Add to my call</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{needDetails}}" hint-placeholder-val="{{ false }}">
+          <form style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; background: #FFFFFF; border: 1px solid #DDE3E2; border-radius: 18px; padding: 24px">
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label for="f-name" style="font-size: 14px; font-weight: 600">Full name</label>
+              <input id="f-name" type="text" autocomplete="name" style="height: 48px; border: 1px solid #B8C4C6; border-radius: 10px; padding: 0 14px; font-size: 16px; color: #10212B; background: #FFFFFF">
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label for="f-email" style="font-size: 14px; font-weight: 600">Email</label>
+              <input id="f-email" type="email" autocomplete="email" style="height: 48px; border: 1px solid #B8C4C6; border-radius: 10px; padding: 0 14px; font-size: 16px; color: #10212B; background: #FFFFFF">
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label for="f-phone" style="font-size: 14px; font-weight: 600">Phone or WhatsApp</label>
+              <input id="f-phone" type="tel" autocomplete="tel" style="height: 48px; border: 1px solid #B8C4C6; border-radius: 10px; padding: 0 14px; font-size: 16px; color: #10212B; background: #FFFFFF">
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label for="f-date" style="font-size: 14px; font-weight: 600">Preferred call date</label>
+              <input id="f-date" type="date" style="height: 48px; border: 1px solid #B8C4C6; border-radius: 10px; padding: 0 14px; font-size: 16px; color: #10212B; background: #FFFFFF">
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px; grid-column: 1 / -1">
+              <label for="f-notes" style="font-size: 14px; font-weight: 600">Anything we should know? (optional)</label>
+              <textarea id="f-notes" rows="3" style="border: 1px solid #B8C4C6; border-radius: 10px; padding: 12px 14px; font-size: 16px; color: #10212B; background: #FFFFFF; resize: vertical"></textarea>
+            </div>
+            <div style="grid-column: 1 / -1">
+              <button type="button" onClick="{{toStep6}}" style="background: #0F5F5C; color: #FFFFFF; border: 0; border-radius: 12px; padding: 14px 24px; min-height: 50px; font-size: 16px; font-weight: 700; cursor: pointer">Request my free call</button>
+            </div>
+          </form>
+          </sc-if>
+        </div>
+        <aside style="flex: 1 1 300px; min-width: 0; background: #FFFFFF; border: 1px solid #DDE3E2; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 14px">
+          <h2 style="margin: 0; font-size: 18px; font-weight: 800">Your selections</h2>
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <span style="font-size: 13px; color: #4A5A63">Looking for</span>
+            <span style="font-size: 15px; font-weight: 600">{{pathLabel}}</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <span style="font-size: 13px; color: #4A5A63">Style</span>
+            <span style="font-size: 15px; font-weight: 600">{{themeList}}</span>
+          </div>
+          <sc-if value="{{showParty}}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; gap: 4px">
+              <span style="font-size: 13px; color: #4A5A63">Who's coming</span>
+              <span style="font-size: 15px; font-weight: 600">{{partyLabel}}</span>
+            </div>
+          </sc-if>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <span style="font-size: 13px; color: #4A5A63">Picks</span>
+            <sc-for list="{{pickNames}}" as="pn" hint-placeholder-count="2">
+              <span style="font-size: 15px; font-weight: 600">{{pn.name}}</span>
+            </sc-for>
+            <sc-if value="{{noPicks}}" hint-placeholder-val="{{ false }}">
+              <span style="font-size: 15px; color: #4A5A63">None yet. We can suggest options on the call.</span>
+            </sc-if>
+          </div>
+        </aside>
+      </section>
+    </sc-if>
+
+    <!-- STEP 6: confirmation -->
+    <sc-if value="{{isStep6}}" hint-placeholder-val="{{ false }}">
+      <section style="display: flex; flex-direction: column; gap: 24px; max-width: 760px">
+        <div style="width: 56px; height: 56px; border-radius: 999px; background: #E3EFEE; display: flex; align-items: center; justify-content: center">
+          <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#0F5F5C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+        <h1 style="margin: 0; font-size: 40px; line-height: 1.12; font-weight: 800">{{doneHeading}}</h1>
+        <p style="margin: 0; font-size: 18px; line-height: 1.55; color: #4A5A63">We'll call you to confirm your package. Your quotation follows the call.</p>
+        <sc-if value="{{offerOther}}" hint-placeholder-val="{{ true }}">
+          <div style="background: #FFFFFF; border: 1px solid #DDE3E2; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+            <h2 style="margin: 0; font-size: 24px; font-weight: 800">{{crossQuestion}}</h2>
+            <p style="margin: 0; font-size: 16px; line-height: 1.5; color: #4A5A63">{{crossSub}}</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px">
+              <button type="button" onClick="{{crossYes}}" style="background: #0F5F5C; color: #FFFFFF; border: 0; border-radius: 12px; padding: 14px 22px; min-height: 50px; font-size: 16px; font-weight: 700; cursor: pointer">{{crossYesLabel}}</button>
+              <button type="button" onClick="{{goHome}}" style="background: transparent; color: #10212B; border: 1px solid #B8C4C6; border-radius: 12px; padding: 14px 22px; min-height: 50px; font-size: 16px; font-weight: 600; cursor: pointer">No thanks, take me home</button>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{crossed}}" hint-placeholder-val="{{ false }}">
+          <div>
+            <button type="button" onClick="{{goHome}}" style="background: #0F5F5C; color: #FFFFFF; border: 0; border-radius: 12px; padding: 14px 22px; min-height: 50px; font-size: 16px; font-weight: 700; cursor: pointer">Back to home</button>
+          </div>
+        </sc-if>
+      </section>
+    </sc-if>
+
+  </div>
+</div>
+</template>
+<script>
+
+var __root, __comp;
+class DCLogic {
+  constructor(props){ this.props = props || {}; this.state = {}; }
+  setState(o){ var prev = this.state.step; this.state = Object.assign({}, this.state, o); __render(); if (o.step !== undefined && o.step !== prev) window.scrollTo(0, 0); }
+  forceUpdate(){ __render(); }
+}
+function __lookup(vals, ctx, path){
+  path = path.trim();
+  if (path === 'true') return true; if (path === 'false') return false;
+  if (/^-?\d+(\.\d+)?$/.test(path)) return Number(path);
+  var parts = path.split('.'); var v = (parts[0] in ctx) ? ctx[parts[0]] : vals[parts[0]];
+  for (var i = 1; i < parts.length; i++) v = (v == null) ? undefined : v[parts[i]];
+  return v;
+}
+function __interp(str, vals, ctx, raw){
+  var whole = str.match(/^\s*\{\{([^}]+)\}\}\s*$/);
+  if (whole && raw) return __lookup(vals, ctx, whole[1]);
+  return str.replace(/\{\{([^}]+)\}\}/g, function(m, p){ var v = __lookup(vals, ctx, p); return v == null ? '' : String(v); });
+}
+function __build(node, vals, ctx, out){
+  node.childNodes.forEach(function(ch){
+    if (ch.nodeType === 3) { out.appendChild(document.createTextNode(__interp(ch.nodeValue, vals, ctx, false))); return; }
+    if (ch.nodeType !== 1) return;
+    var tag = ch.localName;
+    if (tag === 'sc-if') { if (__interp(ch.getAttribute('value') || '', vals, ctx, true)) __build(ch, vals, ctx, out); return; }
+    if (tag === 'sc-for') {
+      var list = __interp(ch.getAttribute('list') || '', vals, ctx, true) || []; var as = ch.getAttribute('as') || 'item';
+      list.forEach(function(item, i){ var c = Object.assign({}, ctx); c[as] = item; c.$index = i; __build(ch, vals, c, out); });
+      return;
+    }
+    var el = document.createElementNS(ch.namespaceURI, tag);
+    Array.prototype.forEach.call(ch.attributes, function(a){
+      if (a.name.indexOf('hint-') === 0) return;
+      if (/^on[a-z]+$/.test(a.name)) { var fn = __interp(a.value, vals, ctx, true); if (typeof fn === 'function') el.addEventListener(a.name.slice(2), function(e){ fn(e); }); return; }
+      el.setAttribute(a.name, __interp(a.value, vals, ctx, false));
+    });
+    __build(ch.content ? ch.content : ch, vals, ctx, el);
+    out.appendChild(el);
+  });
+}
+function __render(){
+  var vals = __comp.renderVals(); var frag = document.createDocumentFragment();
+  __build(document.getElementById('tpl').content, vals, {}, frag);
+  __root.replaceChildren(frag);
+}
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { step: 1, path: null, themes: [], party: null, picks: [], video: 'idle', crossed: false, justBooked: false };
+  }
+
+  renderVals() {
+    var s = this.state || {};
+    var self = this;
+    var step = s.step || 1;
+    var path = s.path;
+    var themes = s.themes || [];
+    var party = s.party;
+    var picks = s.picks || [];
+    var isHomes = path === 'homes';
+
+    var THEMES = [
+      { id: 'love', label: 'Love & romance', desc: 'Honeymoons, anniversaries, time for two' },
+      { id: 'adventure', label: 'Adventure', desc: 'Safaris, dives, desert and mountain days' },
+      { id: 'family', label: 'Family', desc: 'Room to spread out, things for the kids' },
+      { id: 'relax', label: 'Rest & relaxation', desc: 'Beaches, spas and slow mornings' },
+      { id: 'culture', label: 'Culture & heritage', desc: 'Old towns, food and local life' },
+      { id: 'celebrate', label: 'Celebration', desc: 'Birthdays, milestones, group trips' }
+    ];
+    var PARTY = [
+      { id: 'solo', label: 'Solo' },
+      { id: 'couple', label: 'Couple' },
+      { id: 'family', label: 'Family with kids' },
+      { id: 'group', label: 'Friends group' }
+    ];
+    var TINTS = ['#D9E6E1', '#F0E2CB', '#E1E4F0', '#EBDCD6', '#DCE8D4', '#E6E0EE'];
+
+    var HOME_ALBUMS = [
+      { id: 'h-rom', title: 'Romantic hideaways', sub: 'Private, quiet stays for two', themes: ['love', 'relax'], party: ['couple'] },
+      { id: 'h-fam', title: 'Family homes', sub: 'Space, kitchens and safe outdoor areas', themes: ['family', 'celebrate'], party: ['family', 'group'] },
+      { id: 'h-adv', title: 'Lodges near the action', sub: 'Close to parks, lakes and trails', themes: ['adventure'], party: ['solo', 'couple', 'group'] },
+      { id: 'h-city', title: 'City apartments', sub: 'Central, walkable, ready for nights out', themes: ['culture', 'celebrate'], party: ['solo', 'couple', 'group'] },
+      { id: 'h-water', title: 'Beach and lake houses', sub: 'Wake up by the water', themes: ['relax', 'love', 'family'], party: ['couple', 'family', 'group'] }
+    ];
+    var TOUR_ALBUMS = [
+      { id: 't-znz', title: 'Zanzibar', sub: 'East Africa', themes: ['love', 'relax', 'culture'], trips: [
+        { name: 'Zanzibar Easter escape', meta: '4 days · RIU Jambo all-inclusive · Stone Town tour', price: '$1,400 pp' },
+        { name: '[Package name]', meta: '[Days · highlights]', price: '[YOUR PRICE]' } ] },
+      { id: 't-dxb', title: 'Dubai', sub: 'Middle East', themes: ['celebrate', 'adventure', 'love'], trips: [
+        { name: '[Package name]', meta: '[Days · highlights]', price: '[YOUR PRICE]' },
+        { name: '[Package name]', meta: '[Days · highlights]', price: '[YOUR PRICE]' } ] },
+      { id: 't-thai', title: 'Thailand', sub: 'Asia', themes: ['adventure', 'relax', 'culture'], trips: [
+        { name: 'Thailand city and islands', meta: '10 days · Bangkok, Phuket, Phi Phi · flights included', price: '$2,000 pp' } ] },
+      { id: 't-ea', title: 'East Africa', sub: 'Kenya and the region', themes: ['adventure', 'family', 'culture'], trips: [
+        { name: '[Package name]', meta: '[Days · highlights]', price: '[YOUR PRICE]' },
+        { name: '[Package name]', meta: '[Days · highlights]', price: '[YOUR PRICE]' } ] },
+      { id: 't-sa', title: 'South Africa', sub: 'Southern Africa', themes: ['adventure', 'culture', 'family'], trips: [
+        { name: '[Package name]', meta: '[Days · highlights]', price: '[YOUR PRICE]' } ] },
+      { id: 't-eu', title: 'Europe', sub: 'Europe', themes: ['love', 'culture', 'celebrate'], trips: [
+        { name: '[Package name]', meta: '[Days · highlights]', price: '[YOUR PRICE]' },
+        { name: '[Package name]', meta: '[Days · highlights]', price: '[YOUR PRICE]' } ] }
+    ];
+
+    function hasAny(a, b) { for (var i = 0; i < a.length; i++) { if (b.indexOf(a[i]) >= 0) return true; } return false; }
+    function labelOf(list, id) { for (var i = 0; i < list.length; i++) { if (list[i].id === id) return list[i].label; } return id; }
+
+    // stepper
+    var LABELS = ['Choose', 'Welcome', 'Your style', 'Your picks', 'Free call'];
+    var steps = LABELS.map(function (l, i) {
+      var n = i + 1;
+      var cur = n === step;
+      var done = n < step;
+      var dot = 'width: 30px; height: 30px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; ' +
+        (cur ? 'background: #0F5F5C; color: #FFFFFF;' : done ? 'background: #10212B; color: #FFFFFF;' : 'background: #FFFFFF; color: #4A5A63; border: 1px solid #B8C4C6; box-sizing: border-box;');
+      var lab = 'font-size: 14px; ' + (cur ? 'font-weight: 700; color: #10212B;' : 'font-weight: 500; color: #4A5A63;');
+      return { n: String(n), label: l, dotStyle: dot, labelStyle: lab };
+    });
+
+    // theme chips
+    var themeChips = THEMES.map(function (t) {
+      var on = themes.indexOf(t.id) >= 0;
+      return {
+        label: t.label, desc: t.desc, pressed: on ? 'true' : 'false',
+        style: 'text-align: left; display: flex; flex-direction: column; gap: 6px; padding: 18px; min-height: 96px; border-radius: 14px; cursor: pointer; color: #10212B; ' +
+          (on ? 'background: #E3EFEE; border: 2px solid #0F5F5C;' : 'background: #FFFFFF; border: 2px solid #DDE3E2;'),
+        toggle: function () {
+          var next = themes.indexOf(t.id) >= 0 ? themes.filter(function (x) { return x !== t.id; }) : themes.concat([t.id]);
+          self.setState({ themes: next });
+        }
+      };
+    });
+    var partyChips = PARTY.map(function (p) {
+      var on = party === p.id;
+      return {
+        label: p.label, pressed: on ? 'true' : 'false',
+        style: 'padding: 12px 20px; min-height: 48px; border-radius: 999px; font-size: 15px; font-weight: 600; cursor: pointer; ' +
+          (on ? 'background: #0F5F5C; color: #FFFFFF; border: 2px solid #0F5F5C;' : 'background: #FFFFFF; color: #10212B; border: 2px solid #DDE3E2;'),
+        pick: function () { self.setState({ party: party === p.id ? null : p.id }); }
+      };
+    });
+
+    // albums
+    var nameById = {};
+    function makeItem(id, name, meta, price, photo, tint) {
+      nameById[id] = name;
+      var on = picks.indexOf(id) >= 0;
+      return {
+        id: id, name: name, meta: meta, price: price, photo: photo,
+        pressed: on ? 'true' : 'false',
+        tag: on ? 'Added' : 'Add',
+        tagStyle: 'font-size: 13px; font-weight: 700; padding: 5px 12px; border-radius: 999px; ' + (on ? 'background: #0F5F5C; color: #FFFFFF;' : 'background: #E3EFEE; color: #0F5F5C;'),
+        cardStyle: 'padding: 0; overflow: hidden; border-radius: 14px; cursor: pointer; background: #FFFFFF; color: #10212B; display: flex; flex-direction: column; ' +
+          (on ? 'border: 2px solid #0F5F5C;' : 'border: 2px solid #DDE3E2;'),
+        photoStyle: 'height: 140px; width: 100%; box-sizing: border-box; padding: 10px; display: flex; align-items: flex-end; background: ' + tint + ';',
+        toggle: function () {
+          var next = picks.indexOf(id) >= 0 ? picks.filter(function (x) { return x !== id; }) : picks.concat([id]);
+          self.setState({ picks: next });
+        }
+      };
+    }
+
+    var albums = [];
+    var filtered = false;
+    if (isHomes) {
+      var hs = HOME_ALBUMS.filter(function (a) {
+        var tOk = themes.length === 0 || hasAny(a.themes, themes);
+        var pOk = !party || a.party.indexOf(party) >= 0;
+        return tOk && pOk;
+      });
+      if (hs.length === 0) { hs = HOME_ALBUMS; } else { filtered = themes.length > 0 || !!party; }
+      albums = hs.map(function (a, ai) {
+        var tint = TINTS[HOME_ALBUMS.indexOf(a) % TINTS.length];
+        var items = [1, 2, 3].map(function (k) {
+          return makeItem(a.id + '-' + k, '[Home name]', '[Area, city] · Sleeps [n]', '[PRICE] / night', '[Photo]', tint);
+        });
+        return { title: a.title, sub: a.sub, countText: items.length + ' homes', items: items };
+      });
+    } else {
+      var ts = TOUR_ALBUMS.filter(function (a) { return themes.length === 0 || hasAny(a.themes, themes); });
+      if (ts.length === 0) { ts = TOUR_ALBUMS; } else { filtered = themes.length > 0; }
+      albums = ts.map(function (a) {
+        var tint = TINTS[TOUR_ALBUMS.indexOf(a) % TINTS.length];
+        var items = a.trips.map(function (t, k) {
+          return makeItem(a.id + '-' + k, t.name, t.meta, t.price, '[Photo: ' + a.title + ']', tint);
+        });
+        return { title: a.title, sub: a.sub, countText: items.length + (items.length === 1 ? ' package' : ' packages'), items: items };
+      });
+    }
+    // make sure names for picks from any path are known
+    HOME_ALBUMS.forEach(function (a) { [1, 2, 3].forEach(function (k) { if (!nameById[a.id + '-' + k]) nameById[a.id + '-' + k] = '[Home name] · ' + a.title; }); });
+    TOUR_ALBUMS.forEach(function (a) { a.trips.forEach(function (t, k) { if (!nameById[a.id + '-' + k]) nameById[a.id + '-' + k] = t.name; }); });
+
+    var themeNames = themes.map(function (id) { return labelOf(THEMES, id); });
+    var matchParts = themeNames.slice();
+    if (isHomes && party) matchParts.push(labelOf(PARTY, party));
+    var matchText = filtered ? 'Matched to: ' + matchParts.join(', ') + '. Tap any card to add it to your shortlist.' : 'Showing everything. Tap any card to add it to your shortlist.';
+
+    var n = picks.length;
+    var pickSummary = n === 0 ? 'No picks yet. You can still book a call and we will suggest options.' : n + (n === 1 ? ' pick' : ' picks') + ' on your shortlist.';
+
+    return {
+      steps: steps,
+      showBack: step > 1 && step < 6,
+      isStep1: step === 1, isStep2: step === 2, isStep3: step === 3, isStep4: step === 4, isStep5: step === 5, isStep6: step === 6,
+      isHomes: isHomes,
+      pathLabel: isHomes ? 'Homes' : 'Tours & travel',
+      continueLabel: isHomes ? 'Find my kind of home' : 'Find my kind of trip',
+      themeHeading: isHomes ? 'What kind of stay are you after?' : 'What kind of trip are you dreaming of?',
+      revealLabel: isHomes ? 'Show my homes' : 'Show my destinations',
+      themeCountText: themes.length === 0 ? 'Nothing picked? We will show you everything.' : themes.length + ' selected',
+      revealHeading: isHomes ? 'Homes picked for you' : 'Destinations picked for you',
+      matchText: matchText,
+      themeChips: themeChips,
+      partyChips: partyChips,
+      albums: albums,
+      bookLabel: n > 0 ? 'Book a free call (' + n + ')' : 'Book a free call',
+      bookBtnStyle: 'background: #0F5F5C; color: #FFFFFF; border: 0; border-radius: 12px; padding: 14px 22px; min-height: 50px; font-size: 15px; font-weight: 700; cursor: pointer',
+      pickSummary: pickSummary,
+      videoIdle: s.video !== 'playing',
+      videoPlaying: s.video === 'playing',
+      themeList: themeNames.length ? themeNames.join(', ') : 'Open to suggestions',
+      showParty: isHomes && !!party,
+      partyLabel: party ? labelOf(PARTY, party) : '',
+      pickNames: picks.map(function (id) { return { name: nameById[id] || id }; }),
+      noPicks: n === 0,
+      justBooked: !!s.justBooked,
+      crossed: !!s.crossed,
+      needDetails: !s.crossed,
+      offerOther: !s.crossed,
+      bookHeading: s.crossed ? 'Add these to your call' : 'Book your free consultation call',
+      bookSub: s.crossed ? 'Your call request is already in. We will cover these on the same call.' : "We'll confirm your package and answer your questions. Your quotation follows the call.",
+      doneHeading: s.crossed ? 'Added to your call' : 'Your call request is in',
+      crossQuestion: isHomes ? 'Planning a trip as well?' : 'Need a place to stay too?',
+      crossSub: isHomes ? 'Browse tour packages and we will cover them on the same call.' : 'Browse homes and we will cover them on the same call.',
+      crossYesLabel: isHomes ? 'Yes, show me tours' : 'Yes, show me homes',
+      crossYes: function () { self.setState({ path: isHomes ? 'tours' : 'homes', step: 3, party: null, crossed: true }); },
+      goHome: function () { self.setState({ step: 1, path: null, themes: [], party: null, picks: [], video: 'idle', crossed: false, justBooked: true }); },
+      chooseHomes: function () { self.setState({ path: 'homes', step: 2, themes: [], party: null, picks: [], video: 'idle', crossed: false, justBooked: false }); },
+      chooseTours: function () { self.setState({ path: 'tours', step: 2, themes: [], party: null, picks: [], video: 'idle', crossed: false, justBooked: false }); },
+      playVideo: function () { self.setState({ video: 'playing' }); },
+      toStep3: function () { self.setState({ step: 3 }); },
+      toStep4: function () { self.setState({ step: 4 }); },
+      toStep5: function () { self.setState({ step: 5 }); },
+      toStep6: function () { self.setState({ step: 6 }); },
+      goBack: function () { self.setState({ step: Math.max(1, step - 1) }); },
+      restart: function () { self.setState({ step: 1, path: null, themes: [], party: null, picks: [], video: 'idle' }); }
+    };
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function(){ __root = document.getElementById('app'); __comp = new Component({}); __render(); });
+
+</script>
+</body>
+</html>
